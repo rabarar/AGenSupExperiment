@@ -1,6 +1,6 @@
 # Supexp
 
-**TODO: Add description**
+**An expirimental starting point for Agents, GenServers, and Supervisors**
 
 ## Installation
 
