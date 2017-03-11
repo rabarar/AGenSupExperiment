@@ -17,16 +17,39 @@ Documentation can be generated with [ExDoc](https://github.com/elixir-lang/ex_do
 and published on [HexDocs](https://hexdocs.pm). Once published, the docs can
 be found at [https://hexdocs.pm/supexp](https://hexdocs.pm/supexp).
 
-## To start a worker supervisor:
+## To start the meta-agent
+```elixir-lang
+iex -S mix
+SupExp.Agent.init
+
+SupExp.Agent.start(:rob)
+SupExp.Agent.list ## to see all agents in the meta-agent state
+SupExp.Agent.stop(:rob)
+```
+
+## To start a worker supervisor and subsequent children:
 ```elixir-lang
 iex -S mix
 
-{:ok, worker_sup} = SupExp.WorkerSupervisor.start_link({SupExp.Worker, :start_link, []})
+## App will automaticall start -> {:ok, worker_sup} = SupExp.WorkerSupervisor.start_link({SupExp.Worker, :start_link, []})
 
-Supervisor.start_child(worker_sup,[[]])
+## start them manually through Supervisor
+Supervisor.start_child(SupExp.WorkerSupervisor,[[]]) ## optionally name the children,  [[name: :rob]]
 
-Supervisor.which_children(worker_sup)
+## Or start them through the SupExp Mod naming with an atom or a string
+SupExp.create_child(:rb)
 
-Supervisor.count_children(worker_sup)
+## stop the child (and have the supervisor restart it)
+SupExp.Worker.stop(:rb)
+
+## check out what children are what...
+Supervisor.which_children(SupExp.WorkerSupervisor)
+
+Supervisor.count_children(SupExp.WorkerSupervisor)
+
+## and watch the whole thing with
+:observer.start
+
+```
 
 # AGenSupExperiment
