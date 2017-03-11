@@ -1,6 +1,6 @@
 # Supexp
 
-**An expirimental starting point for Agents, GenServers, and Supervisors**
+**An experimental starting point for Agents, GenServers, and Supervisors**
 
 ## Installation
 
